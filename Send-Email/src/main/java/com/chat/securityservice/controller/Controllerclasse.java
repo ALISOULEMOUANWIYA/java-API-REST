@@ -28,8 +28,6 @@ public class Controllerclasse {
 	
 	@PostMapping(path = "/sendEmail")
 	public Mono<EmailResetResponseDto> sendOTP(@Valid @RequestBody EmailResetRequestDto emailResetRequestDto){
-		System.out.println(emailResetRequestDto);
-		new EmailResetRequestDto("0"," ", " ",emailResetRequestDto.getEmail(),"Niroume Validator:");
 		LOGGER.info("Classe Controller ( Email : {} )", 
 				emailResetRequestDto.getEmail()
 				);
