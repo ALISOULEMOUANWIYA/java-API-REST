@@ -5,6 +5,8 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +84,8 @@ public class TwilioOTPService implements EmailSender{
 			}
 			return Mono.just(passwordResetResponseDto);
 		} else {
-			return Mono.error(new IllegalArgumentException("Email: ["+emailResetRequestDto.getPhoneNumber()+"] is not a valid number"));
+			passwordResetResponseDto = new EmailResetResponseDto(OptStatus.FAILED, "Email: ["+emailResetRequestDto.getEmail()+"] is not valid");
+			return Mono.just(passwordResetResponseDto);
 		}
 	}
 
@@ -97,40 +100,51 @@ public class TwilioOTPService implements EmailSender{
 	
 	private boolean isEmailValid(String email) {
 		// TODO: Implement Email validator
+
 		String FormEmail1 = "@gmail.com";
 		String FormEmail2 = "@yahoo.com";
-		String s = "bla bla <alex@waytolearnx.com> && mail:emily@gmail.com";
-	      Matcher m = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+").matcher(email);
-	      System.out.println(m.group());
-	      while (m.find()) 
+		boolean validatorNameEmail = false;
+	    Matcher filter = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+").matcher(email);
+	      while (filter.find()) 
 	      {
-	          System.out.println(m.group());
-	      }
-		if (email.contains(FormEmail1) || email.contains(FormEmail2)) {
-			if (email.contains(FormEmail1)) {
-				String NameEmail = email.substring(0, email.indexOf(FormEmail1));
-				if (NameEmail.length() > 3) {
-					if ( !(NameEmail.trim()).equals("") ) {
-						return true;
-					} else {
-						return false;
-					}
-				} else {
-					return false;
+	  		if ((filter.group()).endsWith(FormEmail1) || (filter.group()).endsWith(FormEmail2)) {
+				if ((filter.group()).endsWith(FormEmail1)) {
+					String NameEmail = (filter.group()).substring(0, (filter.group()).indexOf(FormEmail1));
+					validatorNameEmail = this.validator(NameEmail);
+				} else if ((filter.group()).endsWith(FormEmail2)){
+					String NameEmail = (filter.group()).substring(0, (filter.group()).indexOf(FormEmail2));
+					validatorNameEmail = this.validator(NameEmail);
 				}
 			} else {
-				String NameEmail = email.substring(0, email.indexOf(FormEmail2));
-				if (NameEmail.length() > 3) {
-					if ( !(NameEmail.trim()).equals("") ) {
-						return true;
-					} else {
-						return false;
-					}
-				} else {
-					return false;
-				}
+				validatorNameEmail = false;
+			}
+	      }
+	      return validatorNameEmail;
+	}
+	
+	private boolean validator(String value) {
+		boolean validatorNameEmail = false;
+		if (value.length() > 3) {
+			if (!(value.trim()).equals("") ) {
+				validatorNameEmail = this.getTypeValue(value);
+			} else {
+				validatorNameEmail = false;
 			}
 		} else {
+			validatorNameEmail = false;
+		}
+		return validatorNameEmail;
+	}
+	
+	private boolean getTypeValue(String value) {
+		if (value == null) {
+			return false;
+		} else {
+			try {
+				double d = Double.parseDouble(value);
+			} catch (NumberFormatException e) {
+				return true;
+			}
 			return false;
 		}
 	}
