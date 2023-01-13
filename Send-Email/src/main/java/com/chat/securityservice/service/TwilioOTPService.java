@@ -99,6 +99,13 @@ public class TwilioOTPService implements EmailSender{
 		// TODO: Implement Email validator
 		String FormEmail1 = "@gmail.com";
 		String FormEmail2 = "@yahoo.com";
+		String s = "bla bla <alex@waytolearnx.com> && mail:emily@gmail.com";
+	      Matcher m = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+").matcher(email);
+	      System.out.println(m.group());
+	      while (m.find()) 
+	      {
+	          System.out.println(m.group());
+	      }
 		if (email.contains(FormEmail1) || email.contains(FormEmail2)) {
 			if (email.contains(FormEmail1)) {
 				String NameEmail = email.substring(0, email.indexOf(FormEmail1));

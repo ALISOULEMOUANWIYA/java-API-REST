@@ -34,8 +34,9 @@ public class PasswordResetRequestDto {
 	
 	@Override
 	public String toString() {
-		return "PasswordResetRequestDto [phoneNumber=" + phoneNumber + ", username=" + userName + ", oneTimePassword="
-				+ oneTimePassword + "]";
+		return "PasswordResetRequestDto [phoneNumber=" + phoneNumber 
+				+ ", username=" + userName 
+				+ ", oneTimePassword="+ oneTimePassword + "]";
 	}
 	
 }
