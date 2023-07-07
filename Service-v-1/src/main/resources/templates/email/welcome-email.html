@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Template for HTML email</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <style>
+            .carEmail{
+                width: 100%;
+                height: 20rem;
+                display: block;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .topMail{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.3rem;
+                width: auto;
+                height: 2rem;
+                margin: 0 1rem -0.25rem 1rem;
+                background: linear-gradient(
+                    to bottom,
+                    rgb(54, 45, 45),
+                    rgb(31, 29, 29),
+                    rgb(0, 0, 0)
+                );
+                border: 0.15rem solid #003803;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                border-top-left-radius: 1.5rem;
+                border-top-right-radius: 1.5rem;
+                z-index: 1;
+                box-shadow: rgba(0, 0, 0, 0.498) 0px 1px 1px,
+                        rgba(0, 0, 0, 0.498) 0px 2px 2px,
+                        rgba(0, 0, 0, 0.498) 0px 4px 4px,
+                        rgba(0, 0, 0, 0.498) 0px 8px 8px,
+                        rgba(0, 0, 0, 0.498) 0px 16px 16px;
+            }
+
+            .bodyMail{
+                position: relative;
+                width: 100%;
+                height: 10rem;
+                display: flex;
+                background: rgb(54, 45, 45);
+                border: 0.15rem solid #003803;
+                border-bottom-left-radius: 1rem;
+                border-bottom-right-radius: 1rem;
+                border-right-color: #ffffff;
+                border-left-color: #ffffff;
+                z-index: 10;
+                box-shadow: rgba(0, 0, 0, 0.498) 0px 1px 1px,
+                        rgba(0, 0, 0, 0.498) 0px 2px 2px,
+                        rgba(0, 0, 0, 0.498) 0px 4px 4px,
+                        rgba(0, 0, 0, 0.498) 0px 8px 8px,
+                        rgba(0, 0, 0, 0.498) 0px 16px 16px;
+            }   
+
+            .bodyMail .left{
+                width: 100%;
+                border-right-color: #ffffff;
+                border-bottom-left-radius: 1rem;
+                border-bottom-right-radius: 0;
+                border-top-left-radius: 0rem;
+                border-top-right-radius: 0;
+                background: linear-gradient(
+                    to bottom,
+                    rgb(54, 45, 45),
+                    rgb(31, 29, 29),
+                    rgb(35, 85, 25)
+                );
+            }
+             .bodyMail .left .logo{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: auto;
+                height: 2.5rem;
+                margin: 0.5rem;
+            }
+
+            .bodyMail .left .logo .cardLogo{
+                position: absolute;
+                overflow: hidden;
+                border: 0.1rem rgb(0, 120, 26) solid;
+                border-radius: 20px;
+                left: 0.5rem;
+                margin: 0.2rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .bodyMail .left .logo img{
+                width: 100%;
+                height: 100%;
+            }
+
+            .bodyMail .left .EmailSended{
+                position: relative;
+                top: 2.5rem;
+                
+            }
+            .bodyMail .left ul, .right ul{
+                display: block;
+                list-style: none;
+                font-size: 1rem;
+                padding: 0rem 0.5rem;
+            }
+
+            .bodyMail .left li, .right li{
+                color: #fff;
+                font-size: 0.8rem;
+            }
+
+            .bodyMail .right{
+                width: 100%;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 1rem;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0rem;
+                background: linear-gradient(
+                    to top,
+                    rgb(54, 45, 45),
+                    rgb(31, 29, 29),
+                    rgb(35, 85, 25)
+                );
+            }
+
+            .bodyMail .right .MotifeEmail{
+                position: relative;
+                bottom: 0.5rem;
+            }
+
+            .bodyMail .left span{
+                color: rgb(234, 255, 0);
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            }
+
+
+            .bottomMail{
+                position: relative;
+                left: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: auto;
+                height: 2rem;
+                padding: 0.5rem 3rem;
+                margin: -0.25rem 1rem 0 1rem ;
+                color: #fff;
+                background: linear-gradient(
+                to bottom,
+                rgb(54, 45, 45),
+                rgb(31, 29, 29),
+                rgb(0, 0, 0)
+                );
+                border: 0.15rem solid #003803;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 1.5rem;
+                border-bottom-right-radius: 1.5rem;
+                z-index: 1;
+                box-shadow: rgba(0, 0, 0, 0.498) 0px 1px 1px,
+                        rgba(0, 0, 0, 0.498) 0px 2px 2px,
+                        rgba(0, 0, 0, 0.498) 0px 4px 4px,
+                        rgba(0, 0, 0, 0.498) 0px 8px 8px,
+                        rgba(0, 0, 0, 0.498) 0px 16px 16px;
+            }
+            .bottomMail ul{
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                list-style: none;
+                padding-left: 0;
+            }
+
+            .bottomMail ul li{
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .bottomMail ul li:nth-child(1){
+                color: rgb(234, 255, 0);
+                margin-right: 0.5rem;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="carEmail">
+            <div class="topMail" style="color: #fff; font-size: 1rem; display: flex ;">
+                <span style="color:  rgb(234, 255, 0); font-size: 1rem; margin-right: 0.5rem;">Welcom </span>
+                <span th:text="${name}">user name </span> 
+            </div>
+            <div class="bodyMail">
+                <div class="left">
+                    <div class="logo">
+                        <div class="cardLogo">
+                            <img src="../../../resources/image/email_logo.png" alt="" th:src="|cid:${imageResourceName}|">
+                        </div>
+                        <span style="position: relative; top: 0.5rem">Spley Mail</span>
+                    </div>
+                    <div class="EmailSended">
+                        <ul>
+                            <li>Nom    : <span th:text="${name}">Ali Soule</span></li>
+                            <li>Email  : <span th:text="${email}">mouanwiya30@gmail.com</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="right">
+                    <ul class="MotifeEmail">
+                        <li>Motife Email <span>de recuperation</span></li>
+                        <li>Temps envoi   : <span th:text="${timeSend}">16:16:57</span></li>
+                        <li>Temps Expire  : <span th:text="${timeExp}">16:27:07</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottomMail">
+                <ul>
+                    <li>Code : </li>
+                    <li  th:text="${codeValidation}" >12DG73</li>
+                </ul>
+                <p style="margin-left: 15px;" >Or this QR code</p>
+            </div>
+        </div>
+        <p style="position: relative; display: flex; align-items: center; justify-content: center; bottom: 5rem">
+            <img src="../../../resources/image/qrcode-spring.png" data-th-src="|cid:springLogo|" height="300rem" />
+        </p>
+        <p style="position: relative; display: flex; align-items: center; justify-content: center; bottom: 6.5rem">
+            QR code, 
+            &emsp; <em>The AwesomeApp Team</em>
+        </p>
+    </body>
+</html>
